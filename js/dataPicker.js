@@ -1316,8 +1316,7 @@ DateInput = (function() {
             var _clickDay = this.stringToDate(dayString);
             var _month = _clickDay.getMonth() + 1;
                 _month = _month <= 9 ?"0" + _month:"" + _month;
-                // =================================恢复=================================
-            if(this.DetailData[_clickDay.getFullYear() + "" + (_clickDay.getMonth() + 1)] || true){
+            if(this.DetailData[_clickDay.getFullYear() + "" + (_clickDay.getMonth() + 1)]){
                 this.refreshRight();
             }else if(_clickDay.getFullYear() > 2018 || _clickDay.getFullYear() < 2012){
                 this.refreshRight();

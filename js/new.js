@@ -149,10 +149,8 @@ var CalendarNew = {
 			dataType: 'JSONP',
 			jsonpCallback:"ILData_callback",
 			success: function(data){
-				console.log(ILData)
 				var province = ILData[2] || '北京';
 				var city = ILData[3] || '北京';
-				console.log(ILData[2])
 				_this.setLocatedCity(city);
 				callback && callback(province,city)
 			},
