@@ -1,0 +1,938 @@
+@charset "UTF-8";
+body{margin:0;background:#fdfdfd;color:#333;font:14px/1.6 'microsoft yahei','Simsun',Tahoma,Geneva}
+input,textarea,select{margin:0;padding:0;outline:0;font-size:12px;resize:none}
+html:root body,html:root input,html:root button,html:root textarea,html:root select{font-family:'microsoft yahei','Simsun',Tahoma,Geneva,'Heiti SC'}
+form,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,p{margin:0;padding:0;list-style:none}
+a{outline:0;color:#333;text-decoration:none;*cursor:pointer}
+a:hover{color:#e90000;text-decoration:underline}
+a img{border:0}
+i,em{font-style:normal}
+button{cursor:pointer}
+button i{display:none}
+/** {
+	box-sizing: border-box;
+}*/
+.vert_center {
+	display: inline-block;
+	vertical-align: middle;
+}
+.clearfix:before, .clearfix:after {
+    display: table;
+    content: " ";
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+html,body {
+	width: 100%;
+	background: #f0f0f0;
+}
+
+
+.rili-main {
+	/*width: 100%;*/
+	width: 1200px;
+	margin: 0 auto;
+	padding-top: 30px;
+	background: #f0f0f0;
+}
+
+.rili-main .cal-popup-new {
+	width: 100%;
+	margin: 0 auto;
+	font-size: 13px;
+	height: 650px;
+}
+
+.rili-main .cal-wrap {
+	width: 1200px;
+	height: 650px;
+	overflow: hidden;
+	margin: 0 auto;
+	color: #666;
+	background: #f0f0f0;
+}
+
+.rili-main .cal-popup-new .cal-left {
+	float: left;
+	display: inline;
+	width: 796px;
+	height: 650px;
+	margin-right: 10px;
+	background: #fff;
+	border: 1px solid #dbdbdb;
+}
+
+.rili-main .cal-popup-new .cal-right {
+	float: left;
+	display: inline;
+	width: 394px;
+	height: 650px;
+	background: #f6f6f6;
+	position: absolute;
+}
+.rili-main .cal-popup-new .cal-right-top,
+.rili-main .cal-popup-new .cal-right-middle,
+.rili-main .cal-popup-new .cal-right-bottom {
+	position: relative;
+	padding: 0 20px;
+	background: #fff;
+	border: 1px solid #e5e5e5;
+}
+.rili-main .cal-popup-new .cal-right-top {
+	height: 302px;
+}
+.rili-main .cal-popup-new .cal-right-middle {
+	height: 185px;
+	margin-top: 10px;
+}
+.rili-main .cal-popup-new .cal-right-title {
+	height: 44px;
+	line-height: 44px;
+	font-size: 16px;
+	font-weight: bold;
+	border-bottom: 1px solid #dedede;
+}
+.rili-main .cal-right-today-info span {
+	line-height: 24px;
+	font-size: 12px;
+	color: #999;
+}
+.rili-main .cal-right-weather-today,
+.rili-main .cal-right-weather-tomorrow {
+	width: 156px;
+	height: 90px;
+	margin-top: 6px;
+}
+.rili-main .cal-right-weather-today {
+	padding-left: 10px;
+}
+.rili-main .cal-right-weather-tomorrow {
+	padding-left: 30px;
+}
+.rili-main .cal-right-weather-item{
+	float: left;
+	width: 50%;
+	margin: 0 auto;
+}
+.rili-main .cal-right-weather-item .desc,
+.rili-main .cal-right-weather-item .temper {
+	width: 50%;
+	height: 40px;
+}
+.rili-main .cal-right-weather-item .desc img {
+	width: 100%;
+	height: 100%;
+}
+
+.rili-main .cal-right-weather-item .top,
+.rili-main .cal-right-weather-item .bottom {
+	display: block;
+	text-align: center;
+	white-space: nowrap;
+}
+.rili-main .cal-right-weather-item .bottom.temp {
+	color: #296bd3;
+}
+.rili-main .cal-right-weather-item .temper {
+	margin-top: 10px;
+}
+.rili-main .cal-popup-new .cal-right-title a {
+	font-size: 14px;
+	color: #999;
+}
+.rili-main .cal-popup-new .cal-right-bottom {
+	height: 138px;
+	margin-top: 10px;
+	padding: 0 16px;
+}
+.rili-main .cal-popup-new .cal-selRow {
+	position: relative;
+	height: 78px;
+	margin-left: 20px;
+	line-height: 78px;
+}
+
+.rili-main .cal-popup-new .cal-todayBtn {
+	display: inline-block;
+	width: 72px;
+	height: 32px;
+	margin-top: 22px;
+	line-height: 32px;
+	text-align: center;
+	background: #f7f7f7;
+	border: 2px solid #e0e0e0;
+	cursor: pointer;
+}
+
+.rili-main .cal-popup-new .cal-todayBtn:hover {
+	background: #f1f1f1;
+}
+
+.rili-main .cal-popup-new .custom-nowtime {
+	position: absolute;
+	right: 8px;
+	top: 18px;
+	width: 180px;
+	height: 36px;
+	margin-left: 20px;
+	line-height: 36px;
+	font-size: 18px;
+}
+
+.rili-main .cal-popup-new .cal-selRow select {
+	margin: 0px 5px;
+}
+
+.rili-main .cal-popup-new .cal-mainRow {
+	margin: 0px 20px;
+	border-top: 2px solid #68b3ff;
+}
+
+.rili-main .cal-popup-new .cal-hdRow {
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 2px solid #cfd0d1;
+}
+.rili-main .cal-popup-new .cal-hdRow .cal-weekend {
+	color: #e24141;
+}
+
+.rili-main .cal-popup-new .cal-hdItem {
+	float: left;
+	width: 108px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.rili-main .cal-popup-new .cal-td {
+	float: left;
+	width: 101px;
+	height: 83px;
+	text-align: center;
+	cursor: pointer;
+	position: relative;
+	display: inline;
+	margin-right: 1px;
+	border: 3px solid transparent;
+}
+.rili-main .cal-popup-new .cal-date {
+	font-size: 30px;
+	font-family: "黑体";
+	line-height: 24px;
+	padding-top: 20px;
+}
+
+.rili-main .cal-popup-new .cal-oldDate {
+	margin-top: 4px;
+	font-size: 14px;
+	color: #bfbfbf;
+}
+
+.rili-main .cal-popup-new .cal-td:hover,
+.rili-main .cal-popup-new .cal-tdCur {
+	border: 3px solid #3399ff;
+}
+
+.rili-main .cal-popup-new .cal-festival {
+}
+
+.rili-main .cal-popup-new .cal-festival .cal-date {
+	color: #d22d00;
+}
+
+.rili-main .cal-popup-new .cal-dayTil {
+	height: 78px;
+	line-height: 78px;
+	font-size: 20px;
+	border-bottom: 1px solid #dedede;
+	opacity: 0.5;
+	color: #333;
+}
+.rili-main .cal-popup-new .cal-dayTil span {
+	margin-right: 60px;
+}
+.rili-main .cal-popup-new .cal-dayTil span.no-margin {
+	margin: 0;
+}
+
+.rili-main .cal-popup-new .cal-dayNubWrap {
+	width: 123px;
+	height: 123px;
+	line-height: 123px;
+	text-align: center;
+}
+
+.rili-main .cal-popup-new .cal-dayNub {
+	display: inline-block;
+	vertical-align: top;
+	color: #464646;
+	font-size: 110px;
+}
+
+.rili-main .cal-popup-new .cal-dayInfo {
+}
+.rili-main .cal-popup-new .cal-dayInfo i {
+	display: inline;
+}
+.rili-main .cal-dayInfo-wrap {
+	margin-top: 20px;
+	line-height: 1.35;
+	font-size: 18px;
+	text-align: center;
+	color: #666;
+}
+.rili-main .cal-popup-new .cal-dayinfo-article {
+	display: inline-block;
+	margin-top: 16px;
+	text-decoration: underline;
+	color: #e24141;
+}
+.rili-main .cal-popup-new .cal-dayInfoLast {
+	margin: 0px 20px;
+}
+
+.rili-main .cal-popup-new .cal-rightRow2 {
+	width: 100%;
+	height: auto;
+	margin-top: 10px;
+	padding: 0px 7px;
+}
+
+.rili-main .cal-popup-new .cal-rightTil {
+	float: left;
+	text-align: center;
+	height: 24px;
+	margin-top: 4px;
+	line-height: 24px;
+}
+
+.rili-main .cal-popup-new .cal-ji,
+.rili-main .cal-popup-new .cal-yi {
+	width: 100%;
+	overflow: hidden;
+	line-height: 24px;
+}
+
+.rili-main .cal-popup-new .cal-jiTil {
+	color: #ff0a08;
+}
+
+.rili-main .cal-popup-new .cal-yiTil {
+	height: 100%;
+	color: #67b800;
+}
+
+.rili-main .cal-popup-new .cal-jyRow {
+	float: left;
+	height: 32px;
+	margin-left: 26px;
+	line-height: 32px;
+	font-size: 14px;
+}
+
+.rili-main .cal-popup-new .cal-tdGray .cal-date,
+.rili-main .cal-popup-new .cal-tdGray .cal-oldDate {
+	/*color: #bfbfbf;*/
+	opacity: 0.5;
+}
+
+.rili-main .cal-popup-new .cal-bdWrap {
+	_height: 300px;
+	min-height: 300px;
+	height: 448px;
+}
+
+.rili-main .cal-popup-new .cal-xiuIcon,
+.rili-main .cal-popup-new .cal-banIcon {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 15px;
+	height: 15px;
+	background: #e27979;
+	color: #fff;
+	line-height: 15px;
+}
+
+.rili-main .cal-popup-new .cal-banIcon {
+	background: #8a8a8a;
+}
+
+.rili-main .cal-popup-new .cal-xiu {
+	background-color: #fff0f0;
+}
+
+.rili-main .cal-popup-new .cal-ban {
+	background-color: #f2f2f2;
+}
+
+.rili-main .cal-popup-new .cal-tdWrap {
+	clear: both;
+	border-bottom: 2px solid #cfd0d1;
+}
+
+.rili-main .cal-popup-new .cal-tip {
+	clear: both;
+	display: inline-block;
+	width: 100%;
+	height: 64px;
+	line-height: 64px;
+}
+
+.rili-main .cal-popup-new .cal-tip-text {
+	float: left;
+	margin-right: 20px;
+}
+.rili-main .cal-popup-new .cal-tip-text:hover {
+	color: #296bd3;
+}
+.rili-main .cal-popup-new .cal-tip-text .red {
+	color: #e24141;
+}
+.rili-main .cal-popup-new .cal-tip-text .green {
+	color: #16c48a;
+}
+.rili-main .cal-popup-new .cal-tip-text .blue {
+	color: #296bd3;
+}
+.rili-main .cal-popup-new .custom-sel {
+	position: relative;
+	float: left;
+	height: 32px;
+	line-height: 32px;
+	width: 142px;
+	border: 1px solid #bcbcbc;
+	position: relative;
+	cursor: pointer;
+	display: inline;
+	margin: 22px 22px 0px 0px;
+	border: 2px solid #e0e0e0;
+}
+
+.rili-main .cal-popup-new .custom-sel .custom-pre,
+.rili-main .cal-popup-new .custom-sel .custom-next,
+.rili-main .cal-popup-new .custom-sel2 .custom-pre,
+.rili-main .cal-popup-new .custom-sel2 .custom-next {
+	position: absolute;
+	top: 0;
+	display: inline-block;
+	width: 22px;
+	height: 32px;
+	background: #f8f8f8;
+	text-align: center;
+}
+.rili-main .cal-popup-new .custom-sel .custom-pre {
+	left: 0;
+	border-right: 2px solid #e0e0e0;
+}
+.rili-main .cal-popup-new .custom-sel .custom-next {
+	right: 0;
+	border-left: 2px solid #e0e0e0;
+}
+.rili-main .cal-popup-new .custom-sel .custom-center {
+	margin: 0px 24px;
+	position: relative;
+}
+
+.rili-main .cal-popup-new .custom-sel:hover .custom-dwn {
+	background: #f1f1f1;
+}
+
+.rili-main .cal-popup-new .custom-dwn {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	background: #fafafa;
+	border-left: 2px solid #e0e0e0;
+	width: 26px;
+	height: 32px;
+}
+
+.rili-main .cal-popup-new .custom-txt {
+	padding-left: 20px;
+}
+.rili-main .cal-popup-new .custom-txt.holiday {
+	padding-left: 30px;
+}
+.rili-main .cal-popup-new .custom-dwn s {
+	position: absolute;
+	top: 15px;
+	left: 7px;
+	overflow: hidden;
+	width: 0;
+	height: 0;
+	border: 5px solid;
+	border-color: #bebebe transparent transparent;
+	_border-color: #bebebe pink pink;
+	_filter: chroma(color=pink);
+}
+
+.rili-main .cal-popup-new .cal-jieri {
+	color: #16c48a;
+	height: 18px;
+	overflow: hidden;
+}
+.rili-main .cal-popup-new .cal-jieqi {
+	color: #296bd3;
+	height: 18px;
+	overflow: hidden;
+}
+.rili-main .cal-popup-new .cal-domestic {
+	color: #e24141;
+	height: 18px;
+	overflow: hidden;
+}
+
+.rili-main .cal-popup-new .custom-sel2 {
+	float: left;
+	height: 32px;
+	line-height: 32px;
+	position: relative;
+	border: 2px solid #e0e0e0;
+	width: 126px;
+	cursor: pointer;
+	margin: 22px 22px 0px 0px;
+}
+
+.rili-main .cal-popup-new .custom-sel2 .custom-pre {
+	left: 0px;
+	border-right: 2px solid #e0e0e0;
+}
+
+.rili-main .cal-popup-new .custom-sel2 .custom-pre:hover {
+	/*background-position: -62px -30px;*/
+}
+
+.rili-main .cal-popup-new .custom-sel2 .custom-next {
+	right: 0px;
+	border-left: 2px solid #e0e0e0;
+}
+
+.rili-main .cal-popup-new .custom-sel2 .custom-next:hover {
+	background-position: -90px -30px;
+}
+
+.rili-main .cal-popup-new .custom-sel2 .custom-center {
+	margin: 0px 24px;
+	position: relative;
+}
+
+.rili-main .cal-popup-new .custom-txt2 {
+	padding-left: 20px;
+}
+
+.rili-main .cal-popup-new .custom-sel2 s {
+	position: absolute;
+	top: 13px;
+	left: 40px;
+	overflow: hidden;
+	width: 0;
+	height: 0;
+	border: 5px solid;
+	border-color: #bebebe transparent transparent;
+	_border-color: #bebebe pink pink;
+	_filter: chroma(color=pink);
+}
+
+.rili-main .cal-popup-new .arrow {
+	position: absolute;
+	top: -12px;
+	left: 50px;
+	overflow: hidden;
+	width: 0;
+	height: 0;
+	border: 6px solid;
+	border-color: transparent transparent #e0e0e0;
+	_border-color: pink pink #e0e0e0;
+	_filter: chroma(color=pink);
+	z-index: 2;
+}
+
+.rili-main .cal-popup-new .custom-selList {
+	position: absolute;
+	top: 20px;
+	left: 10px;
+	background: #fff;
+	border: 1px solid #dedede;
+	z-index: 2;
+	width: 90px;
+}
+
+.rili-main .cal-popup-new .custom-selList ul {
+}
+
+.rili-main .cal-popup-new .custom-selList li {
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+}
+
+.rili-main .cal-popup-new .custom-selList li:hover,
+.rili-main .cal-popup-new .custom-selList .selected {
+	background: #eeeeee;
+	cursor: pointer;
+}
+
+.rili-main .cal-popup-new .custom-selList1 {
+	top: 56px;
+	left: 25px;
+	display: none;
+	overflow-y: scroll;
+	height: 323px;
+}
+
+.rili-main .cal-popup-new .custom-selList3 {
+	top: 56px;
+	left: 320px;
+	width: 116px;
+	display: none;
+}
+
+.rili-main .cal-popup-new .custom-selList2 {
+	top: 56px;
+	left: 192px;
+	width: 78px;
+	display: none;
+}
+
+.rili-main .cal-popup-new .cal-today {
+	background: #3399ff!important;
+}
+.rili-main .cal-popup-new .cal-today:after {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	content: '今';
+	color: #fff;
+}
+
+.rili-main .cal-popup-new .cal-today .cal-date {
+	color: #fff;
+}
+
+.rili-main .cal-popup-new .cal-today .cal-oldDate {
+	color: #fff;
+}
+.rili-main .select-constellation {
+	position: relative;
+	top: 8px;
+	left: 20px;
+	width: 92px;
+	height: 24px;
+	border: 2px solid #e0e0e0;
+	cursor: pointer;
+}
+.rili-main .constellation-list {
+	position: absolute;
+	left: 69px;
+	top: 34px;
+	width: 68px;
+	height: auto;
+	border: 1px solid #dedede;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 24px;
+	text-indent: 14px;
+	background: #fff;
+	cursor: pointer;
+	display: none;
+}
+.rili-main .constellation-info {
+	margin-top: 18px;
+}
+.rili-main .constellation-list li {
+	width: 100%;
+	height: 24px;
+	line-height: 24px;
+}
+.rili-main .constellation-info-right {
+	width: 140px;
+	line-height: 32px;
+	text-align: right;
+}
+.rili-main .constellation-info-left {
+	width: 220px;
+}
+.rili-main .constellation-info-fortune {
+	width: 220px;
+	margin-bottom: 10px;
+}
+.rili-main .constellation-info-right a {
+	display: inline-block;
+}
+.rili-main .constellation-list li:hover {
+	background-color: #f1f1f1;
+}
+.rili-main .select-constellation:hover .arrow-down {
+	background: #f1f1f1;
+}
+.rili-main .select-constellation .arrow-down {
+	width: 22px;
+	height: 24px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	background: #fafafa;
+	border-left: 2px solid #e0e0e0;
+}
+.rili-main .select-constellation .arrow-down s {
+ 	position: absolute;
+	top: 11px;
+	left: 5px;
+	overflow: hidden;
+	width: 0;
+	height: 0;
+	border: 5px solid;
+	border-color: #bebebe transparent transparent;
+	_border-color: #bebebe pink pink;
+	_filter: chroma(color=pink);
+ }
+.rili-main .select-constellation .selected-text {
+	position: absolute;
+	top: 0;
+	left: 14px;
+	line-height: 24px;
+	font-size: 12px;
+	font-weight: 400;
+	color: #666;
+}
+
+/*calendar_sprites.png*/
+.rili-main .cal-sprites {
+	display: inline-block;
+	background: url(../images/calendar_sprites.png) no-repeat;
+	background-size: 168px 158px;
+}
+.rili-main .bg-1 {
+    width: 20px; height: 20px;
+    background-position: -50px -97px;
+}
+.rili-main .bg-2 {
+    width: 20px; height: 20px;
+    background-position: -10px -97px;
+}
+.rili-main .bg-3 {
+    width: 20px; height: 20px;
+    background-position: -98px -50px;
+}
+.rili-main .bg-4 {
+    width: 20px; height: 20px;
+    background-position: -90px -97px;
+}
+.rili-main .bg-5 {
+    width: 20px; height: 20px;
+    background-position: -138px -10px;
+}
+.rili-main .bg-6 {
+    width: 20px; height: 20px;
+    background-position: -98px -10px;
+}
+.rili-main .bg-path_3_copy {
+	position: absolute;
+	top: 11px;
+	right: 9px;
+    width: 5px; height: 11px;
+    background-position: -10px -137px;
+}
+.rili-main .bg-path_3 {
+	position: absolute;
+	top: 11px;
+	left: 9px;
+    width: 5px; height: 11px;
+    background-position: -35px -137px;
+}
+.rili-main .on.bg-star {
+	float: left;
+    width: 24px; height: 23px;
+    background-position: -10px -54px;
+}
+.rili-main .bg-star {
+	float: left;
+    width: 23px; height: 23px;
+    background-position: -54px -54px;
+}
+.rili-main .bg-suitable {
+    width: 24px; height: 24px;
+    background-position: -54px -10px;
+}
+.rili-main .bg-taboo {
+    width: 24px; height: 24px;
+    background-position: -10px -10px;
+}
+.rili-main .bg-time {
+    width: 20px; height: 20px;
+    background-position: -138px -50px;
+}
+.rili-main .bg-triangle_copy {
+	position: absolute;
+	top: 13px;
+    width: 10px; height: 6px;
+    margin-left: 5px;
+    background-position: -138px -90px;
+}
+
+/*先添加部分*/
+.new-content {
+    overflow: hidden;
+    width: 1200px;
+    height: 486px;
+    margin: 0 auto;
+    background: #f0f0f0;
+}
+.new-content a:hover {
+    color: #296bd3;
+}
+.new-content li {
+    margin-bottom: 8px;
+}
+.modular {
+    margin-bottom: 10px;
+    background: #fff;
+    border: 1px solid #dbdbdb;
+}
+
+.new-content .new-left {
+    float: left;
+    width: 796px;
+}
+.new-content .history-today {
+    overflow: hidden;
+    width: 394px;
+    height: 274px;
+}
+.new-content .history-today li {
+    margin-left: 22px;
+    margin-bottom: 7px;
+}
+.new-content h4 {
+    position: relative;
+    margin: 0 16px;
+    margin-bottom: 4px;
+    font-size: 16px;
+    line-height: 44px;
+    color: #666;
+    border-bottom: 2px solid #f2f7fA;
+}
+.new-content .new-headline h4 {
+    margin-bottom: 18px;
+}
+.new-content h4 .title-line {
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    margin-right: 8px;
+    background: #296bd3;
+}
+.new-content h4 .float-right {
+    position: absolute;
+    top: 0px;
+    *top: -10px;
+    right: 0;
+}
+.new-content h4 a {
+    font-weight: 400;
+    font-size: 14px;
+    color: #999;
+}
+.new-content h4 span {
+    font-size: 18px;
+    color: #666;
+}
+.new-content .title {
+    font-size: 24px;
+}
+.new-headline {
+    height: 274px;
+}
+.new-headline-left {
+    float: left;
+    padding: 0 54px 0 40px;
+}
+.new-headline-right {
+    display: inline-block;
+}
+.new-content .news-list-1 li {
+    width: 300px;
+    color: #333;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.new-content .news-list-1 li a {
+    font-size: 16px;
+}
+.news-list-2 {
+    padding-top: 10px;
+}
+.new-content .news-list-2 li {
+    display: block;
+}
+.news-list-2 a {
+    color: #666;
+}
+.new-headline-right-img-box {
+    overflow: hidden;
+}
+.new-headline-right-img-box .item {
+    display: inline-block;
+    float: left;
+    margin-left: 10px;
+}
+.new-headline-right-img-box .item img {
+    width: 180px;
+    height: 120px;
+}
+.related-tools {
+    overflow: hidden;
+    height: 202px;
+}
+.related-tools-item-box {
+    overflow: hidden;
+    padding-left: 40px;
+    text-align: center;
+}
+.related-tools-item {
+    float: left;
+    padding-top: 20px;
+    margin-right: 35px;
+}
+.related-tools-item img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+}
+.new-right {
+    overflow: hidden;
+    float: right;
+}
+.history-today-list {
+    margin-top: 15px;
+}
+.history-today-list i {
+    margin-right: 12px;
+}
+.rili-ad {
+    width: 1200px;
+    margin: 10px auto;
+}
+.rili-ad li {
+    float: left;
+    width: 190px;
+    height: 150px;
+    background: red;
+    margin-right: 12px;
+}

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link href="css/index.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        document.domain = 'tool.114la.com';
+    </script>
+</head>
+    <body>
+        <header style="height: 210px;background: #ccc;">header</header>
+        <div class="rili-main">
+            <!-- 日历 -->
+            <div class="cal-popup-new" id="cal-popup-new" >
+                <s class="arrow"></s><i class="arrow"></i>
+                <div class="cal-wrap-new">
+                    <div class="cal-left">
+                        <div class="cal-selRow">
+                            <div class="custom-sel">
+                                <span class="custom-pre" id="prev-year"><i class="cal-sprites bg-path_3"></i></span>
+                                <span class="custom-next" id="next-year"><i class="cal-sprites bg-path_3_copy"></i></span>
+                                <div class="custom-center" id="cal-year-handle">
+                                    <span class="custom-txt"></span>
+                                    <i class="cal-sprites bg-triangle_copy"></i>
+                                </div>
+                            </div>
+                            <input type="hidden" value="2015" id="cal-year-inp"/>
+                            <div class="custom-sel2">
+                                <span class="custom-pre" id="cal-preMonth"><i class="cal-sprites bg-path_3"></i></span>
+                                <span class="custom-next" id="cal-nextMonth"><i class="cal-sprites bg-path_3_copy"></i></span>
+                                <div class="custom-center" id="cal-month-handle">
+                                    <span class="custom-txt2"></span>
+                                    <i class="cal-sprites bg-triangle_copy"></i>
+                                </div>
+                            </div>
+                            <input type="hidden" value="01" id="cal-month-inp"/>
+                            <div class="custom-sel" id="cal-holiday-handle">
+                                <span class="custom-txt holiday">假期安排</span>
+                                <span class="custom-dwn"><s>&nbsp;</s></span>
+                            </div>
+                            <input type="hidden" value="2015" id="cal-holiday-inp"/>
+                            <div class="custom-selList custom-selList1" id="cal-year-list">
+                                <ul> 
+                                    <li value="2015">2015年</li>
+                                    <li value="2014">2014年</li>
+                                    <li value="2013">2013年</li>
+                                    <li value="2012">2012年</li>
+                                </ul>
+                            </div>
+                            <div class="custom-selList custom-selList2" id="cal-month-list">
+                                <ul> 
+                                    <li value="1">1月</li>
+                                    <li value="2">2月</li>
+                                    <li value="3">3月</li>
+                                    <li value="4">4月</li>
+                                    <li value="5">5月</li>
+                                    <li value="6">6月</li>
+                                    <li value="7">7月</li>
+                                    <li value="8">8月</li>
+                                    <li value="9">9月</li>
+                                    <li value="10">10月</li>
+                                    <li value="11">11月</li>
+                                    <li value="12">12月</li>
+                                </ul>
+                            </div>
+                            <div class="custom-selList custom-selList3" id="cal-holiday-list">
+                                <ul> 
+                                    <li value="1">假期安排</li>
+                                    <li value="2">元旦</li>
+                                    <li value="3">春节</li>
+                                    <li value="4">清明节</li>
+                                    <li value="5">劳动节</li>
+                                    <li value="6">端午节</li>
+                                    <li id="kzsl" value="9" style="display: none;">抗战胜利</li>
+                                    <li value="7">中秋节</li>
+                                    <li value="8">国庆节</li>
+                                </ul>
+                            </div>
+                            <span class="cal-todayBtn" id="cal-todayBtn">今天</span>
+                            <div class="custom-nowtime">
+                                <i class="cal-sprites bg-time vert_center"></i>
+                                <span class="vert_center js-custom-nowtime-p">北京时间 13:48:46</span>
+                            </div>
+                        </div>
+                        <div class="cal-mainRow">
+                            <div class="cal-hdRow">
+                                <div class="cal-hdItem cal-weekend">星期日</div>
+                                <div class="cal-hdItem">星期一</div>
+                                <div class="cal-hdItem">星期二</div>
+                                <div class="cal-hdItem">星期三</div>
+                                <div class="cal-hdItem">星期四</div>
+                                <div class="cal-hdItem">星期五</div>
+                                <div class="cal-hdItem cal-weekend">星期六</div>
+                            </div>
+                            <div class="cal-bdWrap">
+                                <div class="cal-tr" id="cal-con">
+
+                                </div>
+                            </div>
+                            <div class="cal-tip">
+                                <div class="cal-tip-text"><span class="red">红字</span> 表示农历传统节日</div>
+                                <div class="cal-tip-text"><span class="green">绿字</span> 表示公众/国际节日</div>
+                                <div class="cal-tip-text"><span class="blue">蓝字</span> 表示24节气</div>
+                                <span class="cal-tip-text">|</span>
+                                <a href="#" class="cal-tip-text blue"><span class="blue">生肖属相为什么从立春算起？</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cal-right">
+                        <div class="cal-right-top">
+                            <div class="cal-rightRow1 clearfix">
+                                <div class="cal-dayTil">
+                                    <span></span>
+                                    <span></span>
+                                    <span class="no-margin"></span>
+                                </div>
+                                <div class="cal-dayNubWrap fl">
+                                    <span class="cal-dayNub"></span>
+                                </div>
+                                <div class="cal-dayInfo-wrap fl">
+                                    <div class="cal-dayInfo"></div>
+                                    <div class="cal-dayInfo cal-dayInfoLast">甲午年<i>·</i>丁丑月<i>·</i>乙未日</div>
+                                    <a class="cal-dayinfo-article" href="http://tool.114la.com/live/nongli/">测测您最近的运势</a>
+                                </div>
+                            </div>
+                            <div class="cal-rightRow2 clearfix">
+                                <div class="cal-yi">
+                                    <div class="cal-rightTil cal-yiTil"><i class="cal-sprites bg-suitable"></i></div>
+                                    <div class="cal-jyRow">祭祀</div>
+                                    <div class="cal-jyRow">祭祀</div>
+                                    <div class="cal-jyRow">祭祀</div>
+                                    <div class="cal-jyRow">祭祀</div>
+                                    <div class="cal-jyRow">余事勿取</div>
+                                </div>
+                                <div class="cal-ji">
+                                    <div class="cal-rightTil cal-jiTil"><i class="cal-sprites bg-taboo"></i></div>
+                                    <div class="cal-jyRow">祭祀</div>
+                                    <div class="cal-jyRow">祭祀</div>
+                                    <div class="cal-jyRow">祭祀</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cal-right-middle">
+                            <div class="cal-right-title clearfix">
+                                <h4 class="fl">天气</h4>
+                                <p class="fr">
+                                    <span class="js-located-city">北京</span>
+                                    <a href="http://tianqi.114la.com/">更多>></a>
+                                </p>
+                            </div>
+                            <p class="cal-right-today-info">
+                                <span class="js-limitcat">限行尾号：6和8</span>
+                                <span class="js-air-aqi">空气质量：68</span>
+                            </p>
+                            <div class="cal-right-weather clearfix">加载中...</div>
+                        </div>
+                        <div class="cal-right-bottom">
+                            <div class="cal-right-title clearfix">
+                                <h4 class="fl">星座</h4>
+                                <div class="select-constellation fl" id="js-constellation-handle">
+                                    <span class="selected-text">白羊座</span>
+                                    <span class="arrow-down"><s>&nbsp;</s></span>
+                                </div>
+                                <input type="hidden" value="2015" id="js-constellation-inp"/>
+                                <!-- 生成列表 获取对应id -->
+                                <ul class="constellation-list" id="js-constellation-list">
+                                    <li>Moj</li>
+                                </ul>
+                                <p class="fr">
+                                    <a href="http://tool.114la.com/live/nongli">详情>></a>
+                                </p>
+                            </div>
+                            <div class="constellation-info clearfix">
+                                <div class="constellation-info-left fl clearfix">
+                                    <div class="constellation-info-fortune fl">
+                                        <span class="fl">运势点评：</span>
+                                        <ul class="constellation-star-wrap fl">
+                                            <li class="cal-sprites bg-star on"></li>
+                                            <li class="cal-sprites bg-star"></li>
+                                            <li class="cal-sprites bg-star"></li>
+                                            <li class="cal-sprites bg-star"></li>
+                                            <li class="cal-sprites bg-star"></li>
+                                        </ul>
+                                    </div>
+                                    <div class="js-yunshi clearfix">
+                                        <p class="fl">
+                                            <span>幸运数字：</span>
+                                            <span>7&nbsp;</span>
+                                        </p>
+                                        <p class="fl"><span>幸运颜色：</span><span>红色</span></p>
+                                    </div>
+                                </div>
+                                <div class="constellation-info-right fl">
+                                    <a href="">最爱老牛吃嫩草的星座</a>
+                                    <a href="">如何追求不同星座的人</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 广告位置 -->
+            <div class="rili-ad">
+                <ul class="clearfix">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <!-- 新增 start -->
+            <div class="new-content">
+                <div class="new-left">
+                    <div class="new-headline modular">
+                        <h4><i class="title-line"></i>今日头条<span><a class="float-right" href="http://news.114la.com/">更多>></a></span></h4>
+                        <div class="new-headline-left">
+                            <!-- <p class="title">人民日报社报道今日</p> -->
+                            <ul class="news-list-1">
+                                <li>·&nbsp;<a href="http://news.114la.com/info_13923.html">广西男子午休点根烟 却"嘭"一声爆炸了</a></li>
+                                <li>·&nbsp;<a href="http://news.114la.com/info_13922.html">浙江居民楼发生火灾 女子用吹风机吹内裤导致</a></li>
+                                <li>·&nbsp;<a href="http://news.114la.com/info_13920.html">北京回龙观镇镇长 腾退若业主不退租金村镇先垫</a></li>
+                                <li>·&nbsp;<a href="http://news.114la.com/info_13912.html">武汉电子厂起火 该厂去年曾两次发生爆炸</a></li>
+                                <li>·&nbsp;<a href="http://news.114la.com/info_13908.html">ofo回应资金告紧 退押金渠道通畅并保障押金安全</a></li>
+                                <li>·&nbsp;<a href="http://news.114la.com/info_13910.html">劳工盼日政府道歉 称想要在有生之年可以看到</a></li>
+                            </ul>
+                        </div>
+                        <div class="new-headline-right">
+                            <div class="new-headline-right-img-box clearfix">
+                                <a href="http://news.114la.com/info_13916.html" class="item">
+                                    <img src="images/20171201153521b178c.jpg" alt="...">
+                                </a>
+                                <a href="http://news.114la.com/info_13919.html" class="item">
+                                    <img src="images/20171201160541c0426.jpg" alt="...">
+                                </a>
+                            </div>
+                            <ul class="news-list-2">
+                                <li>·&nbsp;<a href="http://news.114la.com/info_13909.html">曝王思聪投资版图 首富之子并非纨绔子弟</a></li>
+                                <li>·&nbsp;<a href="http://news.114la.com/info_13896.html">新疆玛湖地区发现十亿吨级砾岩油田</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="related-tools modular">
+                        <h4><i class="title-line"></i>相关工具<span><a class="float-right" href="http://tool.114la.com/">更多>></a></span></h4>
+                        <ul class="related-tools-item-box">
+                            <a href="http://tool.114la.com/finance/rate" target="_blank" class="related-tools-item" title="汇率查询">
+                                <img src="images/image_01.png" alt="">
+                                <p>汇率查询</p>
+                            </a>
+                            <a href="http://tool.114la.com/live/iq" target="_blank" class="related-tools-item" title="逻辑测试">
+                                <img src="images/image_02.png" alt="">
+                                <p>逻辑测试</p>
+                            </a>
+                            <a href="http://tool.114la.com/live/idcard/" target="_blank" class="related-tools-item" title="身份证查询">
+                                <img src="images/image_03.png" alt="">
+                                <p>身份证查询</p>
+                            </a>
+                            <a href="http://tianqi.114la.com/" target="_blank" class="related-tools-item" title="天气预报">
+                                <img src="images/image_04.png" alt="">
+                                <p>天气预告</p>
+                            </a>
+                            <a href="http://tool.114la.com/live/calendar" target="_blank" class="related-tools-item" title="违章查询">
+                                <img src="images/image_05.png" alt="">
+                                <p>万年历</p>
+                            </a>
+                            <a href="http://tool.114la.com/live/speed" target="_blank" class="related-tools-item" title="网速测试">
+                                <img src="images/image_06.png" alt="">
+                                <p>网速测试</p>
+                            </a>
+                            <a href="http://tool.114la.com/live/car" target="_blank" class="related-tools-item" title="违章查询">
+                                <img src="images/image_07.png" alt="">
+                                <p>违章查询</p>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+                <div class="new-right">
+                    <div class="history-today modular">
+                        <h4>历史上的今天<span class="float-right"><a href="http://tool.114la.com/historytoday">更多>></a></span></h4>
+                        <ol class="history-today-list">
+                            <li><i class="cal-sprites bg-1 vert_center"></i><a class="vert_center" href="#">讽刺文学大师--马克吐温诞辰</a></li>
+                        </ol>
+                    </div>
+                    <div class="new-right-ad modular" style="width: 394px;height: 202px;"></div>
+                </div>
+            </div>
+            <!--新增 end -->
+            <!-- 广告位置 -->
+            <div class="rili-ad">
+                <ul class="clearfix">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+        <footer style="height:52px;background:#333;"></footer>
+        <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="js/util.js"></script>
+        <script type="text/javascript" src="js/Selecter.js"></script>
+        <script type="text/javascript" src="js/dataPicker.js"></script>
+        <script type="text/javascript" src="js/new.js"></script>
+    </body>
+</html>
