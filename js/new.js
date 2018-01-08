@@ -50,6 +50,7 @@ var CalendarNew = {
 		}
 	],
 	timer: null,
+	xingzuoData: {},
 	init: function(){
 		var _this = this;
 		$(function(){
@@ -71,7 +72,9 @@ var CalendarNew = {
 			_this.getLimitNum();
 
 			// 初始化星座
-			_this.getXingzuoYunshi(1);
+			// _this.getXingzuoYunshi(1);
+			_this.getXingZuoFirst(2);
+
 		})
 	},
 	// 生成历史的今天列表
@@ -83,36 +86,33 @@ var CalendarNew = {
 
 	// 初始化历史的今天列表
 	getHistoryDate: function(){
-		console.log(1111)
-		var _this = this;
-		var url = 'http://m.tool.114la.com/api/xingzuoyunshiInfo_pc/today/cb';
-		$.ajax({
-			url: url,
-			type: "GET",
-			dataType: "jsonp",
-			success: function(res) {
-				console.log(res)
-			}
-		})
-		function cb(res) {
-			console.log(res)
+		var _this = this,
+			mm = parseInt(new Date().getMonth()+1),
+			dd = parseInt(new Date().getDate());
+
+		function loadInfo(){
+			var scriptDom = document.createElement("script");
+			scriptDom.type = 'text/javascript';	
+			scriptDom.src = 'http://m.tool.114la.com/api/history_today_pc/1/'+_this.toTwo(mm)+'/'+_this.toTwo(dd)+'/1/historyCb';
+			$('head').append(scriptDom);	
 		}
-		// $.get(url,function(data){
-		// 	if (data.error_code == 0) {
-		// 		var data = data.data;
-		// 		var _html = '';
-		// 		data.forEach(function(item,index){
-		// 			if (index <= 5) {
-		// 				var lpt = _this.createDom(index,item);
-		// 				_html += lpt;
-		// 			}
-		// 		})
-		// 		$('.history-today ol').html(_html)
-		// 	}
-		// })
+		loadInfo();
+		window.historyCb = function(res) {
+			// var res = JSON.parse(res);
+			if (res.error_code == 0) {
+				var _html = '';
+				for (var i = 0; i < res.data.length; i++) {
+					if (i <= 5) {
+						var historyItem = _this.createDom(i,res.data[i]);
+						_html += historyItem;
+					}
+					
+				}
+				$('.history-today ol').html(_html)
+			}
+		}
 	},
 
-	// 生成星座列表
 	initSelecter: function($objWrap) {
 		var _this = this;
 		var _html = '';
@@ -128,13 +128,14 @@ var CalendarNew = {
 		});
 		xingzuo.addListener({
             "afterSelect":function(){
-            	// get当前选中星座的id
             	var xingzuoId;
             	var name = $('.selected-text').text();
             	for (var i = 0; i < _this.constellationList.length; i++) {
-            		xingzuoId = _this.constellationList[i].id;
+            		if (name == _this.constellationList[i]['name']) {
+            			xingzuoId = _this.constellationList[i].id;
+            		}
             	}
-                _this.getXingzuoYunshi(xingzuoId);
+            	_this.setXingzuoYunshi(xingzuoId);
             }
         });
 	},
@@ -148,8 +149,10 @@ var CalendarNew = {
 			dataType: 'JSONP',
 			jsonpCallback:"ILData_callback",
 			success: function(data){
+				console.log(ILData)
 				var province = ILData[2] || '北京';
 				var city = ILData[3] || '北京';
+				console.log(ILData[2])
 				_this.setLocatedCity(city);
 				callback && callback(province,city)
 			},
@@ -158,29 +161,42 @@ var CalendarNew = {
 			}
 		})
 	},
-	// 星座运势
-	getXingzuoYunshi: function(id) {
-		var url = 'http://m.tool.114la.com/api/xingzuoyunshiInfo/'+id;
-		$.ajax({
-			url: url,
-			type: 'GET',
-			success: function(res){
-				if (res.error_code == 0) {
-					var data = res.data.today[0];
-					$('.js-yunshi').html(''+
-						'<p class="fl">'+
-                            '<span>幸运数字：</span>'+
-                            '<span>'+data.list[7].value+'&nbsp;</span>'+
-                        '</p>'+
-                        '<p class="fl"><span>幸运颜色：</span><span>'+data.list[6].value+'</span></p>'
-					);
-					// 星座点评
-					for (var i = 0; i < data.list[0].star; i++) {
-						$('.constellation-info-fortune .bg-star').eq(i).addClass('on');
-					}
-				}
+	// 缓存星座运势数据 & 初始化星座
+	getXingZuoFirst: function(id) {
+		var _this = this;
+		function loadInfo(){
+			var scriptDom = document.createElement("script");
+			scriptDom.type = 'text/javascript';	
+			scriptDom.src = 'http://m.tool.114la.com/api/xingzuoyunshiInfo_pc/'+id+'/today/xingzuoCb';
+			$('head').append(scriptDom);	
+		}
+		loadInfo();
+		window.xingzuoCb = function(res) {
+			if (res.error_code == 0) {
+				_this.xingzuoData = res;
+				// 初始化
+				_this.setXingzuoYunshi(1);
 			}
-		})
+		}
+	},
+	// 星座运势
+	setXingzuoYunshi: function(id) {
+		var _this = this;
+		// 第幾個星座
+		var index = id - 1;
+		var data = _this.xingzuoData.data.today[index];
+		$('.js-yunshi').html(''+
+			'<p class="fl">'+
+                '<span>幸运数字：</span>'+
+                '<span>'+data.list[7].value+'&nbsp;</span>'+
+            '</p>'+
+            '<p class="fl"><span>幸运颜色：</span><span>'+data.list[6].value+'</span></p>'
+		);
+		// 星座点评
+		$('.constellation-info-fortune .bg-star').removeClass('on');
+		for (var i = 0; i < data.list[0].star; i++) {
+			$('.constellation-info-fortune .bg-star').eq(i).addClass('on');
+		}
 	},
 
 	// 获取当前城市

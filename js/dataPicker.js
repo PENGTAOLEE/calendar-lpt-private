@@ -334,7 +334,7 @@ DateInput = (function() {
         month_names: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
         short_month_names: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         short_day_names: ["日", "一", "二", "三", "四", "五", "六"],
-        start_of_week: 7,
+        startOfWeek: 7,
         align: "left",
         minDay : null
     };
@@ -409,7 +409,6 @@ DateInput = (function() {
             this.fireEvent("update",this);
         },
         stringToDate: function(string) {
-            console.log(string)
             var matches;
             if (matches = string.match(/^(\d{4,4})-(\d{1,2})-(\d{1,2})$/)) {
                 return new Date(matches[1], parseInt(matches[2]) - 1, matches[3], 12, 00);
@@ -594,29 +593,29 @@ DateInput = (function() {
 
         // Given a date, return the day at the start of the week *before* this month
         rangeStart: function(date) {
-            return this.changeDayTo(this.start_of_week, new Date(date.getFullYear(), date.getMonth()), -1);
+            return this.changeDayTo(this.startOfWeek, new Date(date.getFullYear(), date.getMonth()), -1);
         },
 
         // Given a date, return the day at the end of the week *after* this month
         rangeEnd: function(date) {
-            return this.changeDayTo((this.start_of_week - 1) % 7, new Date(date.getFullYear(), date.getMonth() + 1, 0), 1);
+            return this.changeDayTo((this.startOfWeek - 1) % 7, new Date(date.getFullYear(), date.getMonth() + 1, 0), 1);
         },
 
         // Is the given date the first day of the week?
         isFirstDayOfWeek: function(date) {
-            return date.getDay() == this.start_of_week;
+            return date.getDay() == this.startOfWeek;
         },
 
         // Is the given date the last day of the week?
         isLastDayOfWeek: function(date) {
-            return date.getDay() == (this.start_of_week - 1) % 7;
+            return date.getDay() == (this.startOfWeek - 1) % 7;
         },
 
         // Adjust a given array of day names to begin with the configured start-of-week
         adjustDays: function(days) {
             var newDays = [];
             for (var i = 0; i < days.length; i++) {
-                newDays[i] = days[(i + this.start_of_week) % 7];
+                newDays[i] = days[(i + this.startOfWeek) % 7];
             };
             return newDays;
         },
@@ -1254,7 +1253,6 @@ DateInput = (function() {
                         oldDateCal = '<div class="cal-oldDate" >' + (_jieri[0] || _jieri[1] || domesticFestival || _lunnarDay) + '</div>';
                     }
 
-
                     dayCell = $('<div class="cal-td ' + ((currentDay.getDay()==0 ||currentDay.getDay()==6) ?"cal-festival":"") + '" date=' + me.dateToString(currentDay) + '>'   +
                                 '<div class="cal-date">' + currentDay.getDate()+ '</div>' +
                                 oldDateCal +
@@ -1322,7 +1320,6 @@ DateInput = (function() {
             if(this.DetailData[_clickDay.getFullYear() + "" + (_clickDay.getMonth() + 1)] || true){
                 this.refreshRight();
             }else if(_clickDay.getFullYear() > 2018 || _clickDay.getFullYear() < 2012){
-                //this.DetailData[curDate.getFullYear() + "" + (curDate.getMonth() + 1)] = {};
                 this.refreshRight();
             }else{
                 
@@ -1332,7 +1329,6 @@ DateInput = (function() {
                     dateType:"json",
                     success:function(data){
                         if(data){
-                           
                            me.DetailData[data.year + "" + data.month] = data.day;
                            me.refreshRight();
                         }
@@ -1340,7 +1336,6 @@ DateInput = (function() {
                     }
                 });
             }
-            //alert(dayString);
         },
 
         // 获取当前第几周
@@ -1365,9 +1360,8 @@ DateInput = (function() {
 
             //那一年第一天是星期几
             var yearFirstDay = new Date(year, 0, 1).getDay() || 7;
-
             var week = null;
-            if (yearFirstDay == 1) {
+            if (yearFirstDay == 1 && false) {
                 week = Math.ceil(days / yearFirstDay);
             } else {
                 days -= (7 - yearFirstDay + 1);
