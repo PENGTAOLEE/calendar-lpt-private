@@ -51,6 +51,8 @@ html,body {
 }
 
 .rili-main .cal-popup-new {
+	position: relative;
+	z-index: 10;
 	width: 100%;
 	margin: 0 auto;
 	font-size: 13px;
@@ -164,6 +166,7 @@ html,body {
 	position: relative;
 	height: 78px;
 	margin-left: 20px;
+	z-index: 99;
 }
 
 .rili-main .cal-popup-new .cal-todayBtn {
@@ -198,6 +201,8 @@ html,body {
 }
 
 .rili-main .cal-popup-new .cal-mainRow {
+	position: relative;
+	z-index: 9;
 	margin: 0px 20px;
 	border-top: 2px solid #68b3ff;
 }
@@ -779,8 +784,8 @@ html,body {
     background-position: -138px -50px;
 }
 .rili-main .bg-triangle_copy {
-	position: absolute;
-	top: 13px;
+	/*position: absolute;
+	top: 13px;*/
     width: 10px; height: 6px;
     margin-left: 5px;
     background-position: -138px -90px;
@@ -788,6 +793,8 @@ html,body {
 
 /*先添加部分*/
 .new-content {
+	position: relative;
+	z-index: 9;
     overflow: hidden;
     width: 1200px;
     height: 486px;
