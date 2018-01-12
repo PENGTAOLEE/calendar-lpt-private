@@ -69,19 +69,29 @@ var CalendarNew = {
 			_this.afterGetAreaId();
 
 			// 限行尾号
-			_this.getLimitNum();
+			// _this.getLimitNum();
 
 			// 初始化星座
 			// _this.getXingzuoYunshi(1);
 			_this.getXingZuoFirst(2);
+
+			$('.js-history-date').html('('+ _this.getTodayDate() +')')
 
 		})
 	},
 	// 生成历史的今天列表
 	createDom: function(index,data) {
 		var num = index + 1;
-		var tpl = '<li>'+'<i class="cal-sprites bg-'+num+' vert_center"></i>'+'<a class="vert_center" href="'+data.url+'">'+data.title+'</a></li>';
+		var tpl = '<li>'+'<i class="cal-sprites bg-'+num+' vert_center"></i>'+'<a class="vert_center" href="'+data.url+'" target="_blank">'+data.title+'</a></li>';
 		return tpl;
+	},
+
+	// 计算今日日期
+	getTodayDate: function() {
+		var d = new Date();
+		var mm = d.getMonth()+1;
+		var dd = d.getDate();
+		return (mm + '月' + dd + '日');
 	},
 
 	// 初始化历史的今天列表
@@ -188,7 +198,7 @@ var CalendarNew = {
                 '<span>幸运数字：</span>'+
                 '<span>'+data.list[7].value+'&nbsp;</span>'+
             '</p>'+
-            '<p class="fl"><span>幸运颜色：</span><span>'+data.list[6].value+'</span></p>'
+            '<p class="fl"><span>幸运颜色：</span><span style="color:#E24141;">'+data.list[6].value+'</span></p>'
 		);
 		// 星座点评
 		$('.constellation-info-fortune .bg-star').removeClass('on');
@@ -205,7 +215,7 @@ var CalendarNew = {
 	getProvinceId: function(callback) {
 		var provinceId;
 		this.getLocalIp(function(province,city){
-			$.get("./data/city/base.json",function(res) {
+			$.get("/static/v3/city/base.json",function(res) {
 				for(var i in res){
 					var zm = res[i].split(",")[0];
 					var wz = res[i].split(",")[1];
@@ -221,7 +231,7 @@ var CalendarNew = {
 	getCityId: function(callback) {
 		var cityId;
 		this.getProvinceId(function(provinceId,city){
-			$.get("./data/city/"+provinceId+".json",function(res){
+			$.get("/static/v3/city/"+provinceId+".json",function(res){
 				for(var j in res){
 					var cityName = res[j].split(",")[1];
 					if(cityName == city){
@@ -237,7 +247,7 @@ var CalendarNew = {
 		var areaId;
 		var _this = this;
 		this.getCityId(function(provinceId,cityId,city){
-			$.get("./data/city/"+provinceId+"/"+cityId+".json",function(areasName){
+			$.get("/static/v3/city/"+provinceId+"/"+cityId+".json",function(areasName){
 				for(var z in areasName){
 					var areaname = areasName[z].split(",")[1];
 					if(areaname == city){
@@ -268,20 +278,20 @@ var CalendarNew = {
 							'<div class="cal-right-weather-today fl">'+
                                 '<div class="cal-right-weather-item">'+
                                     '<div class="desc">'+
-                                        '<strong class="top">今天</strong>'+
+                                        '<strong class="lpt-top">今天</strong>'+
                                         '<span class="bottom">'+today+'</span>'+
                                     '</div>'+
                                     '<div class="temper">'+
-                                        '<strong class="top">'+weatherInfo.weather1+'</strong>'+
+                                        '<strong class="lpt-top">'+weatherInfo.weather1+'</strong>'+
                                         '<span class="bottom temp">'+weatherInfo.temp1+'</span>'+
                                     '</div>'+
                                 '</div>'+
                                 '<div class="cal-right-weather-item">'+
                                     '<div class="desc">'+
-                                        '<img src="'+weatherInfo.img1+'">'+
+                                        '<img src="'+weatherInfo.IconPath2 + weatherInfo.img1+'.png">'+
                                     '</div>'+
                                     '<div class="temper">'+
-                                        '<strong class="top">'+todayWind[1]+'</strong>'+
+                                        '<strong class="lpt-top">'+todayWind[1]+'</strong>'+
                                         '<span class="bottom">'+todayWind[0]+'</span>'+
                                     '</div>'+
                                 '</div>'+
@@ -289,20 +299,20 @@ var CalendarNew = {
                             '<div class="cal-right-weather-tomorrow fl">'+
                                 '<div class="cal-right-weather-item">'+
                                     '<div class="desc">'+
-                                        '<strong class="top">明天</strong>'+
+                                        '<strong class="lpt-top">明天</strong>'+
                                         '<span class="bottom">'+tomorrow+'</span>'+
                                     '</div>'+
                                     '<div class="temper">'+
-                                        '<strong class="top">'+weatherInfo.weather2+'</strong>'+
+                                        '<strong class="lpt-top">'+weatherInfo.weather2+'</strong>'+
                                         '<span class="bottom temp">'+weatherInfo.temp2+'</span>'+
                                     '</div>'+
                                 '</div>'+
                                 '<div class="cal-right-weather-item">'+
                                     '<div class="desc">'+
-                                        '<img src="'+weatherInfo.img1+'">'+
+                                        '<img src="'+weatherInfo.IconPath2 + weatherInfo.img2+'.png">'+
                                     '</div>'+
                                     '<div class="temper">'+
-                                        '<strong class="top">'+tomorrowWind[1]+'</strong>'+
+                                        '<strong class="lpt-top">'+tomorrowWind[1]+'</strong>'+
                                         '<span class="bottom">'+tomorrowWind[0]+'</span>'+
                                     '</div>'+
                                 '</div>'+

@@ -872,7 +872,6 @@ DateInput = (function() {
           day = 60*60*24*1000,
           b= montherDay-cm;
           _montherDay[d.getFullYear()] = montherDay;
-          //console.log(b);
           if(b>0){
             //alert("还没到母亲节");
           }else if(-b >= day){
@@ -893,7 +892,6 @@ DateInput = (function() {
         day = 60*60*24*1000,
         b= fatherDay-cm;
         _fatherDay[d.getFullYear()] = fatherDay;
-        //console.log(dd.getDay());
         
         if(b>0){
         //alert("还没到母亲节");
@@ -939,18 +937,12 @@ DateInput = (function() {
     * @return  array [节日,节气]
     */
     var solarDay3 = function(date){
-        //var sTermInfo = new Array(0,21208,42467,63836,85337,107014,128867,150921,173149,195551,218072,240693,263343,285989,308563,331033,353350,375494,397447,419210,440795,462224,483532,504758);
-        //var solarTerm = new Array("小寒","大寒","立春","雨水","惊蛰","春分","清明","谷雨","立夏","小满","芒种","夏至","小暑","大暑","立秋","处暑","白露","秋分","寒露","霜降","立冬","小雪","大雪","冬至"); 
-        var lFtv = new Array("0101*春节","0115 元宵节","0505 端午节","0707 七夕情人节","0715 中元节","0815 中秋节","0909 重阳节","1208 腊八节","1223 北方小年","1224 南方小年")
+        var lFtv = new Array("0101 春节","0115 元宵节","0505 端午节","0707 七夕情人节","0715 中元节","0815 中秋节","0909 重阳节","1208 腊八节","1223 北方小年","1224 南方小年")
         var sFtv = new Array("0101*元旦","0214 情人节","0308 妇女节","0312 植树节","0315 消费者权益日","0401 愚人节","0501 劳动节","0504 青年节","0512 护士节","0601 儿童节","0701 建党节","0801 建军节","0909 毛席逝世纪念","0910 教师节","0928 孔子诞辰","1001*国庆节",
         "1006 老人节","1024 联合国日","1112 孙中山诞辰","1220 澳门回归纪念","1225 圣诞节","1226 毛席诞辰","0518 国际博物馆日","0605 世界环境日","1111 光棍节","1212 寒衣节","1201 世界艾滋病日","1220 澳门回归","0903 抗战胜利")
         
         
         var sDObj = date || new Date(SY,SM,SD);
-         
-        //if(_montherDay[date.getFullYear()])
-        
-        //console.log(date.getFullYear());
         
         var SY = sDObj.getFullYear();
         var SM = sDObj.getMonth();
@@ -978,8 +970,6 @@ DateInput = (function() {
                 if(_nextLunar.month == 1 && _nextLunar.day == 1){
                     lunarFestival = "除夕";
                 }
-                //console.log(_nextLunar.month + "月" + _nextLunar.day + "日");
-                //lunarFestival = "除夕";
             }
         }
         
@@ -987,8 +977,6 @@ DateInput = (function() {
             lunarFestival = "母亲节";
         }
         
-        //console.log(lDObj.month + "月" + lDObj.day + "日");
-        //console.log(lDObj);
         //国历节日
         $.each(sFtv,function(i,n){
             if(sFtv[i].match(/^(\d{2})(\d{2})([\s\*])(.+)$/)){
@@ -1017,22 +1005,24 @@ DateInput = (function() {
         }
       
         solarTerms = getjq(SY,SM +1,SD);
-       
         if(solarTerms == '' && solarFestival == '' && lunarFestival == ''){
             festival = null;
         } else {
-            if (solarFestival || lunarFestival) {
-                festival = solarFestival || lunarFestival;
+            if (solarFestival) {
+                solarFestival = solarFestival;
+            } else if(lunarFestival) {
+                lunarFestival =  lunarFestival;  
+            } else if(solarTerms) {
+                solarTerms = solarTerms;
             }
-            // festival = solarFestival || lunarFestival || solarTerms;
         }
-        return [festival,solarTerms];
+        return [solarFestival,lunarFestival,solarTerms];
     }
     
     
     var Calendar = function(){
         var me = this;
-        this.DetailData = {};
+        this.DetailDataNew = {};
         this.jia = {};
         this.preSelectedDay = (new Date()).getDate();
         YLMF._extend(this, DateInput.DEFAULT_OPTS);
@@ -1138,8 +1128,22 @@ DateInput = (function() {
             me.year_sel.select(_curTime.getFullYear());
             me.doNotUpdate = false;
             me.month_sel.select(_curTime.getMonth() + 1);
+
+            $("#cal-todayBtn").html('今日').css({
+                'background-color':'#f7f7f7',
+                'color':'#333',
+                'border-color': '#e0e0e0'
+            });
             
         });
+        // 增加选中今天 @lpt
+        $('.cal-td.cal-today').click(function() {
+            $("#cal-todayBtn").html('今日').css({
+                'background-color':'#f7f7f7',
+                'color':'#333',
+                'border-color': '#e0e0e0',
+            });
+        })
         
         $("#cal-nextMonth").click(function(){
             me.nextMonth();
@@ -1244,13 +1248,13 @@ DateInput = (function() {
                     // 公历日历
                     var oldDateCal = '';
                     if (_jieri[0]) {
-                        oldDateCal = '<div class="cal-oldDate cal-jieri" >' + (_jieri[0] || _jieri[1] || domesticFestival || _lunnarDay) + '</div>';
+                        oldDateCal = '<div class="cal-oldDate cal-jieri" >' + (_jieri[0]|| _lunnarDay) + '</div>';
+                    } else if(_jieri[2]) {
+                        oldDateCal = '<div class="cal-oldDate cal-jieqi" >' + (_jieri[2] || _lunnarDay) + '</div>';
                     } else if(_jieri[1]) {
-                        oldDateCal = '<div class="cal-oldDate cal-jieqi" >' + (_jieri[0] || _jieri[1] || domesticFestival || _lunnarDay) + '</div>';
-                    } else if(domesticFestival) {
-                        oldDateCal = '<div class="cal-oldDate cal-domestic" >' + (_jieri[0] || _jieri[1] || domesticFestival || _lunnarDay) + '</div>';
+                        oldDateCal = '<div class="cal-oldDate cal-domestic" >' + (_jieri[1] || _lunnarDay) + '</div>';
                     } else {
-                        oldDateCal = '<div class="cal-oldDate" >' + (_jieri[0] || _jieri[1] || domesticFestival || _lunnarDay) + '</div>';
+                        oldDateCal = '<div class="cal-oldDate" >' + (_lunnarDay) + '</div>';
                     }
 
                     dayCell = $('<div class="cal-td ' + ((currentDay.getDay()==0 ||currentDay.getDay()==6) ?"cal-festival":"") + '" date=' + me.dateToString(currentDay) + '>'   +
@@ -1260,6 +1264,11 @@ DateInput = (function() {
 
                     if (currentDay.getMonth() == date.getMonth()) {
                         dayCell.click(function(){
+                            $("#cal-todayBtn").html('返回今日').css({
+                                'background-color':'#68b3ff',
+                                'color':'#fff',
+                                'border-color': '#68b3ff'
+                            });
                             $("#cal-popup-new .cal-tdCur").removeClass("cal-tdCur");
                             $(this).addClass("cal-tdCur");
                             me.showDetail($(this).attr("date"));
@@ -1268,6 +1277,11 @@ DateInput = (function() {
                     } else {
                         dayCell.addClass("cal-tdGray");
                         dayCell.click(function(){
+                            $("#cal-todayBtn").html('返回今日').css({
+                                'background-color':'#68b3ff',
+                                'color':'#fff',
+                                'border-color': '#68b3ff'
+                            });
                             var DC = this;
                             var _dcDay = me.stringToDate($(DC).attr("date"));
                             me.preSelectedDay = $(DC).attr("date").split("-")[2] | 0;
@@ -1314,12 +1328,12 @@ DateInput = (function() {
         showDetail:function(dayString){
             var me = this;
             var _clickDay = this.stringToDate(dayString);
-            var _month = _clickDay.getMonth() + 1;
+            var _month = _clickDay.getMonth() + 1;  
                 _month = _month <= 9 ?"0" + _month:"" + _month;
-            if(this.DetailData[_clickDay.getFullYear() + "" + (_clickDay.getMonth() + 1)]){
-                this.refreshRight();
+            if(this.DetailDataNew[_clickDay.getFullYear() + "" + (_clickDay.getMonth() + 1)]){
+                this.refreshRightNew();
             }else if(_clickDay.getFullYear() > 2018 || _clickDay.getFullYear() < 2012){
-                this.refreshRight();
+                this.refreshRightNew();
             }else{
                 
                 var _url = "/static/wnl/" + _clickDay.getFullYear() + "/" + _clickDay.getFullYear() + _month + ".json"
@@ -1328,8 +1342,8 @@ DateInput = (function() {
                     dateType:"json",
                     success:function(data){
                         if(data){
-                           me.DetailData[data.year + "" + data.month] = data.day;
-                           me.refreshRight();
+                           me.DetailDataNew[data.year + "" + data.month] = data.day;
+                           me.refreshRightNew();
                         }
                         
                     }
@@ -1371,12 +1385,12 @@ DateInput = (function() {
         },
 
         // 更新天干地支
-        refreshRight:function(){
+        refreshRightNew:function(){
             var me = this;
             var curTd = $("#cal-popup-new .cal-tdCur");
             var curDate = this.stringToDate(curTd.attr("date"));
             var lDObj = new Lunar(curDate);
-            var _curYearData = this.DetailData[curDate.getFullYear() + "" + (curDate.getMonth() + 1)];
+            var _curYearData = this.DetailDataNew[curDate.getFullYear() + "" + (curDate.getMonth() + 1)];
             var weekRank = this.getWeekNumber(curDate.getFullYear(),curDate.getMonth()+1,curDate.getDate());
             if(curTd.size() == 1){
                 var curDetail = _curYearData?_curYearData[curDate.getDate() < 10 ?"0"+curDate.getDate():curDate.getDate()] : null;
@@ -1398,11 +1412,12 @@ DateInput = (function() {
                         }
                     }
                 }
-
+                var getDayTil = new Date(curTd.attr("date"));
+                var getDayTilStr = getDayTil.getFullYear() + '年' + (getDayTil.getMonth()+1) + '月' + getDayTil.getDate() + '日';
                 // 天干地支
                 var calRightTop = '<div class="cal-rightRow1 clearfix">'+
                     '<div class="cal-dayTil">'+
-                        '<span>'+curTd.attr("date")+'</span>'+
+                        '<span>'+getDayTilStr+'</span>'+
                         '<span>星期'+me.short_day_names[curDate.getDay()]+'</span>'+
                         '<span class="no-margin">'+weekRank+'周</span>'+
                     '</div>'+
@@ -1412,7 +1427,7 @@ DateInput = (function() {
                     '<div class="cal-dayInfo-wrap fl">'+
                         '<div class="cal-dayInfo">【'+Animals[(lDObj.year-4)%12]+'年】'+cDay(lDObj.month,lDObj.day | 0)+'</div>'+
                         '<div class="cal-dayInfo cal-dayInfoLast">'+cyclical(lDObj.year-1900+36)+'年<i>·</i>'+cyclical(lDObj.monCyl)+'月<i>·</i>'+cyclical((lDObj.dayCyl|0))+'日</div>'+
-                        '<a class="cal-dayinfo-article" href="#">测测您最近的运势</a>'+
+                        '<a class="cal-dayinfo-article" href="http://xingzuo.114la.com/" target="_blank">测测您最近的运势</a>'+
                     '</div>'+
                 '</div>'+
                 '<div class="cal-rightRow2 clearfix">'+
