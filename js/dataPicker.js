@@ -1141,7 +1141,7 @@ DateInput = (function() {
             $("#cal-todayBtn").html('今日').css({
                 'background-color':'#f7f7f7',
                 'color':'#333',
-                'border-color': '#e0e0e0',
+                'border-color': '#e0e0e0'
             });
         })
         
@@ -1345,7 +1345,6 @@ DateInput = (function() {
                            me.DetailDataNew[data.year + "" + data.month] = data.day;
                            me.refreshRightNew();
                         }
-                        
                     }
                 });
             }
@@ -1412,7 +1411,7 @@ DateInput = (function() {
                         }
                     }
                 }
-                var getDayTil = new Date(curTd.attr("date"));
+                var getDayTil = me.formatDate(curTd.attr("date"));
                 var getDayTilStr = getDayTil.getFullYear() + '年' + (getDayTil.getMonth()+1) + '月' + getDayTil.getDate() + '日';
                 // 天干地支
                 var calRightTop = '<div class="cal-rightRow1 clearfix">'+
@@ -1442,6 +1441,20 @@ DateInput = (function() {
                 '</div>';
                 $("#cal-popup-new .cal-right .cal-right-top").html(calRightTop);
             }
+        },
+        // 解决ie new Date('2017-12-29')返回NaN的问题
+        formatDate: function (dateStringInRange) {
+            var isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/,
+                date = new Date(NaN), month,
+                parts = isoExp.exec(dateStringInRange);
+            if(parts) {
+                month = +parts[2];
+                date.setFullYear(parts[1], month - 1, parts[3]);
+                if(month != date.getMonth() + 1) {
+                    date.setTime(NaN);
+                }
+            }
+            return date;
         },
         checkHoliday:function(){
             var me = this;
