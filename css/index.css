@@ -942,6 +942,7 @@ html,body {
 }
 .related-tools-item p {
 	width: 100%;
+	white-space: nowrap;
 }
 .new-right {
     overflow: hidden;
