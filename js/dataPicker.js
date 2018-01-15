@@ -411,7 +411,7 @@ DateInput = (function() {
         stringToDate: function(string) {
             var matches;
             if (matches = string.match(/^(\d{4,4})-(\d{1,2})-(\d{1,2})$/)) {
-                return new Date(matches[1], parseInt(matches[2]) - 1, matches[3], 12, 00);
+                return new Date(matches[1], parseInt(matches[2],10) - 1, matches[3], 12, 00);
             } else {
                 return null;
             };
@@ -1464,11 +1464,10 @@ DateInput = (function() {
                 $.each(me.jia["" + _year],function(key,item){
                     var _startDay = me.stringToDate(item.f);
                     var _endDay = me.stringToDate(item.t);
-
                     $("#cal-popup-new .cal-td").each(function(){
                         var _curDay = $(this).attr("date");
                         var curDay  = me.stringToDate(_curDay);
-                        if(curDay >= _startDay && curDay <= _endDay){
+                        if((curDay >= _startDay) && (curDay <= _endDay)){
                             if(item.tp == "休"){
                                 $(this).addClass("cal-xiu");
                                 $(this).append('<span class="cal-xiuIcon">休</span>');

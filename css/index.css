@@ -556,7 +556,7 @@ html,body {
 }
 
 .rili-main .cal-popup-new .arrow {
-	position: absolute;
+	/*position: absolute;
 	top: -12px;
 	left: 50px;
 	overflow: hidden;
@@ -566,7 +566,7 @@ html,body {
 	border-color: transparent transparent #e0e0e0;
 	_border-color: pink pink #e0e0e0;
 	_filter: chroma(color=pink);
-	z-index: 2;
+	z-index: 2;*/
 }
 
 .rili-main .cal-popup-new .custom-selList {
@@ -939,6 +939,9 @@ html,body {
     width: 72px;
     height: 72px;
     border-radius: 50%;
+}
+.related-tools-item p {
+	width: 100%;
 }
 .new-right {
     overflow: hidden;
